@@ -6,7 +6,6 @@ import { IResponse } from "../interfaces/IResponse";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { red } from "@mui/material/colors";
 
 const columns: GridColDef[] = [
   { field: "story_title", headerName: "Title", width: 560, sortable: false },
@@ -67,14 +66,22 @@ const Home = (props: IHome) => {
               columns={columns}
               pageSize={20}
               rowsPerPageOptions={[20]}
-              pagination
               disableSelectionOnClick
               onRowClick={(e) => {
                 navigate("/post", { state: e.row });
               }}
             />
           </Box>
-          <Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "10vh",
+              width: "100vw",
+            }}
+            role="pagination"
+          >
             <Pagination
               className="pagination"
               count={50}
