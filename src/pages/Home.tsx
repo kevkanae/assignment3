@@ -54,8 +54,8 @@ const Home = (props: IHome) => {
       {data[props.page] === undefined ? (
         <Box>Loading</Box>
       ) : (
-        <Box sx={{ height: "100vh", width: "100vw" }}>
-          <Box sx={{ height: "90vh", width: "100vw" }}>
+        <Box sx={{ height: "100vh", width: "100vw", p: 2 }}>
+          <Box sx={{ height: "80vh", width: "98vw" }}>
             <DataGrid
               rows={data[props.page].map((x: IResponse, i: number) => {
                 return {
