@@ -4,6 +4,7 @@ import { Pagination } from "@mui/material";
 import { IHome } from "../interfaces/IHome";
 import { IResponse } from "../interfaces/IResponse";
 import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
 
 const columns: GridColDef[] = [
   { field: "story_title", headerName: "Title", width: 560, sortable: false },
@@ -18,6 +19,11 @@ const columns: GridColDef[] = [
 ];
 
 const Home = (props: IHome) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log(props.data);
+  }, [props.data]);
+
   return (
     <>
       {props.data[props.page] === undefined ? (
@@ -35,7 +41,11 @@ const Home = (props: IHome) => {
               columns={columns}
               pageSize={20}
               rowsPerPageOptions={[20]}
+              pagination
               disableSelectionOnClick
+              onRowClick={(e) => {
+                navigate("/post", { state: e.row });
+              }}
             />
           </Box>
           <Box>
@@ -44,7 +54,10 @@ const Home = (props: IHome) => {
               count={50}
               page={props.page}
               color="primary"
-              onChange={(_, value: number) => props.setNewPage(value)}
+              onChange={(_, value: number) => {
+                // props.clickedNextPage(value);
+                props.setNewPage(value);
+              }}
             />
           </Box>
         </Box>

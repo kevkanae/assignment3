@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { IResponse } from "./interfaces/IResponse";
 import Details from "./pages/Details";
 import Home from "./pages/Home";
 
 function App() {
-  const [data, setNewPageData] = useState<any>({});
+  const [postData, setNewPageData] = useState<any>({});
+
   const [page, setNewPage] = useState<number>(1);
 
   const fetchData = async (page: number) => {
@@ -15,8 +15,8 @@ function App() {
         `https://hn.algolia.com/api/v1/search_by_date?query=story&page=${page}`
       )
       .then((res) => {
-        if (data[page] === undefined) {
-          setNewPageData({ ...data, [page]: res.data.hits });
+        if (postData[page] === undefined) {
+          setNewPageData({ ...postData, [page]: res.data.hits });
         }
       })
       .catch((e) => console.log(e));
@@ -24,8 +24,7 @@ function App() {
 
   useEffect(() => {
     fetchData(page);
-    // const timer = setInterval(fetchData, 10000);
-    // return () => clearInterval(timer);
+    console.log("normal fetch");
   }, [page]);
 
   return (
@@ -33,9 +32,9 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Home page={page} setNewPage={setNewPage} data={data} />}
+          element={<Home page={page} setNewPage={setNewPage} data={postData} />}
         />
-        <Route path="/:id" element={<Details />} />
+        <Route path="/post" element={<Details />} />
       </Routes>
     </>
   );
