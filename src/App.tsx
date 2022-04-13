@@ -6,7 +6,6 @@ import Home from "./pages/Home";
 
 function App() {
   const [postData, setNewPageData] = useState<any>({});
-
   const [page, setNewPage] = useState<number>(1);
 
   const fetchData = async (page: number) => {

@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Pagination } from "@mui/material";
 import { IHome } from "../interfaces/IHome";
 import { IResponse } from "../interfaces/IResponse";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { red } from "@mui/material/colors";
 
 const columns: GridColDef[] = [
   { field: "story_title", headerName: "Title", width: 560, sortable: false },
@@ -20,19 +22,43 @@ const columns: GridColDef[] = [
 
 const Home = (props: IHome) => {
   const navigate = useNavigate();
+  const [data, setData] = useState(props.data);
+
+  const fetchData = async (page: number) => {
+    await axios
+      .get(
+        `https://hn.algolia.com/api/v1/search_by_date?query=story&page=${page}`
+      )
+      .then((res) => {
+        if (data[page] === undefined) {
+          setData((prevData: any) => ({ ...prevData, [page]: res.data.hits }));
+        }
+      })
+      .catch((e) => console.log(e));
+  };
+
   useEffect(() => {
-    console.log(props.data);
-  }, [props.data]);
+    console.log(data);
+  }, [data]);
+
+  useEffect(() => {
+    let count = props.page;
+    setInterval(() => {
+      console.log(count);
+
+      fetchData(count++);
+    }, 10000);
+  }, []);
 
   return (
     <>
-      {props.data[props.page] === undefined ? (
+      {data[props.page] === undefined ? (
         <Box>Loading</Box>
       ) : (
         <Box sx={{ height: "100vh", width: "100vw" }}>
-          <Box sx={{ height: "80vh", width: "100vw" }}>
+          <Box sx={{ height: "90vh", width: "100vw" }}>
             <DataGrid
-              rows={props.data[props.page].map((x: IResponse, i: number) => {
+              rows={data[props.page].map((x: IResponse, i: number) => {
                 return {
                   id: i,
                   ...x,
