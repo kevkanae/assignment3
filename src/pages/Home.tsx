@@ -52,11 +52,12 @@ const Home = (props: IHome) => {
   return (
     <>
       {data[props.page] === undefined ? (
-        <Box>Loading</Box>
+        <Box role={"loadingb"}>Loading</Box>
       ) : (
-        <Box sx={{ height: "100vh", width: "100vw", p: 2 }}>
+        <Box role={"dgrid"}  sx={{ height: "100vh", width: "100vw", p: 2 }}>
           <Box sx={{ height: "80vh", width: "98vw" }}>
             <DataGrid
+
               rows={data[props.page].map((x: IResponse, i: number) => {
                 return {
                   id: i,
@@ -80,7 +81,7 @@ const Home = (props: IHome) => {
               height: "10vh",
               width: "100vw",
             }}
-            role="pagination"
+            role="lePagination"
           >
             <Pagination
               className="pagination"
