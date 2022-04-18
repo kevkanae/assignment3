@@ -50,9 +50,10 @@ const Home = (props: IHome) => {
   return (
     <>
       {Object.keys(data).length * 20 === 0 ? (
-        <Typography>Loading...</Typography>
+        <Typography role="loading-text">Loading...</Typography>
       ) : (
         <TableContainer
+          role="table-cont"
           component={Paper}
           sx={{
             display: "flex",
