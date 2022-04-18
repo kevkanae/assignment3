@@ -1,12 +1,12 @@
 import { Button } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { IDetails } from "../interfaces/IDetails";
 
-const Details = () => {
-  const { state } = useLocation();
+const Details = (props: IDetails) => {
   const navigate = useNavigate();
   return (
     <div>
-      <p>{JSON.stringify(state) ?? "-"}</p>
+      <pre>{JSON.stringify(props.data, null, 2) ?? "-"}</pre>
       <Button onClick={() => navigate(-1)}>Go Back</Button>
     </div>
   );

@@ -1,12 +1,11 @@
 export interface IResponse {
-  hits: HitsArray[];
+  hits: HitsObject[];
   page: number;
 }
 
-interface HitsArray {
+export interface HitsObject {
   created_at: string;
-  title?: null;
-  url?: null;
+  title: null;
   author: string;
   story_url: string;
 }
