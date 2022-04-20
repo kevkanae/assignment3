@@ -21,7 +21,7 @@ const Home = (props: IHome) => {
   const fetchData = async (page: number) => {
     console.log(data);
     if (page in data) {
-      console.log("Page Exists Already");
+      console.log(`Page ${page} Exists Already`);
     } else {
       await axios
         .get(
@@ -43,7 +43,8 @@ const Home = (props: IHome) => {
     let count = page + 1;
     setInterval(() => {
       console.log("Polled Page: " + count);
-      fetchData(count++);
+      fetchData(count);
+      count += 1;
     }, 10000);
   }, []);
 
