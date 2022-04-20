@@ -81,10 +81,11 @@ const Home = (props: IHome) => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 600 }}>Title</TableCell>
-                  <TableCell sx={{ fontWeight: 600 }}>Author</TableCell>
-                  <TableCell sx={{ fontWeight: 600 }}>URL</TableCell>
-                  <TableCell sx={{ fontWeight: 600 }}>Created At</TableCell>
+                  {["Author", "Title", "URL", "Created At"].map((x, i) => (
+                    <TableCell sx={{ fontWeight: 600 }} key={i}>
+                      {x}
+                    </TableCell>
+                  ))}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -102,10 +103,10 @@ const Home = (props: IHome) => {
                         }}
                       >
                         <TableCell component="th" scope="row">
-                          {x.title ?? "N/A"}
+                          {x.author ?? "N/A"}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {x.author ?? "N/A"}
+                          {x.title ?? "N/A"}
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {x.story_url ?? "N/A"}
