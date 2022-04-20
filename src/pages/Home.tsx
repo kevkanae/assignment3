@@ -19,15 +19,20 @@ const Home = (props: IHome) => {
   const [page, setPage] = useState<number>(1);
 
   const fetchData = async (page: number) => {
-    console.log("Fetching...");
-    await axios
-      .get(
-        `https://hn.algolia.com/api/v1/search_by_date?query=story&page=${page}`
-      )
-      .then((res) => {
-        setData((prevData: any) => ({ ...prevData, [page]: res.data.hits }));
-      })
-      .catch((e) => console.log(e));
+    console.log(data);
+    if (page in data) {
+      console.log("Page Exists Already");
+    } else {
+      await axios
+        .get(
+          `https://hn.algolia.com/api/v1/search_by_date?query=story&page=${page}`
+        )
+        .then((res) => {
+          console.log("Fetched Data of Page: " + page);
+          setData((prevData: any) => ({ ...prevData, [page]: res.data.hits }));
+        })
+        .catch((e) => console.log(e));
+    }
   };
 
   useEffect(() => {
@@ -37,7 +42,7 @@ const Home = (props: IHome) => {
 
     let count = page + 1;
     setInterval(() => {
-      console.log(count);
+      console.log("Polled Page: " + count);
       fetchData(count++);
     }, 10000);
   }, []);
@@ -66,7 +71,6 @@ const Home = (props: IHome) => {
           <InfiniteScroll
             dataLength={Object.keys(data).length * 20}
             next={() => {
-              console.log("Page: " + page);
               fetchData(page);
               setPage(page + 1);
             }}
@@ -113,7 +117,7 @@ const Home = (props: IHome) => {
                   ))
                 )}
               </TableBody>
-            </Table>{" "}
+            </Table>
           </InfiniteScroll>
         </TableContainer>
       )}
