@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Snapshot of App component 1`] = `
+<p
+  className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+  role="loading-text"
+>
+  Loading...
+</p>
+`;
+
 exports[`Snapshot of Quiz component 1`] = `
 <p
   className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"

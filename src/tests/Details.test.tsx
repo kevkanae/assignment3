@@ -1,8 +1,7 @@
 import renderer from "react-test-renderer";
 import "@testing-library/jest-dom/extend-expect";
-import { screen, render } from "@testing-library/react";
+import { screen, render, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import Home from "../pages/Home";
 import Details from "../pages/Details";
 
 test("Snapshot of Quiz component", () => {
@@ -39,5 +38,7 @@ describe("In details", () => {
 
     let btn = screen.getByText(/Go Back/i);
     expect(btn).toBeInTheDocument();
+
+    expect(fireEvent.click(btn)).toBeTruthy();
   });
 });

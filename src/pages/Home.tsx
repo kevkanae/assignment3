@@ -93,6 +93,7 @@ const Home = (props: IHome) => {
                   data[key].map((x: HitsObject, j: number) => (
                     <React.Fragment key={i + j}>
                       <TableRow
+                        data-testid={`row-${j}`}
                         key={i + j}
                         onClick={() => handleClick(x)}
                         sx={{
